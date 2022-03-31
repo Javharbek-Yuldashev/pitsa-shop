@@ -1,151 +1,97 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import firstPiz from "../../../assets/images/NEW.svg";
-import secPiz from "../../../assets/images/NewPicture.svg";
-import thirdPiz from "../../../assets/images/Pizza.svg";
-import fourthPiz from "../../../assets/images/PiizzaSimple.svg";
-import { CardActionArea, Container } from "@mui/material";
-
+import { Container, Grid } from "@mui/material";
+import { useSelector } from "react-redux";
+import { Box } from "@mui/system";
+import { setKorzinka } from "../../../redux/actions/ProductsActions";
+import store from "../../../redux/store";
 function Products() {
-  const [card, setCard] = React.useState([
-    {
-      img: `${firstPiz}`,
-      info: "С креветками и трюфелями",
-      title:
-        "Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г",
-      price: "от 600 ₽",
-      btnInfo: "В корзину",
-    },
-    {
-      img: `${secPiz}`,
-      info: "С креветками и трюфелями",
-      title:
-        "Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г",
-      price: "от 600 ₽",
-      btnInfo: "В корзину",
-    },
-    {
-      img: `${thirdPiz}`,
-      info: "С креветками и трюфелями",
-      title:
-        "Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г",
-      price: "от 600 ₽",
-      btnInfo: "В корзину",
-    },
-    {
-      img: `${fourthPiz}`,
-      info: "С креветками и трюфелями",
-      title:
-        "Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г",
-      price: "от 600 ₽",
-      btnInfo: "В корзину",
-    },
-    {
-      img: `${firstPiz}`,
-      info: "С креветками и трюфелями",
-      title:
-        "Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г",
-      price: "от 600 ₽",
-      btnInfo: "В корзину",
-    },
-    {
-      img: `${secPiz}`,
-      info: "С креветками и трюфелями",
-      title:
-        "Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г",
-      price: "от 600 ₽",
-      btnInfo: "В корзину",
-    },
-    {
-      img: `${thirdPiz}`,
-      info: "С креветками и трюфелями",
-      title:
-        "Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г",
-      price: "от 600 ₽",
-      btnInfo: "В корзину",
-    },
-    {
-      img: `${fourthPiz}`,
-      info: "С креветками и трюфелями",
-      title:
-        "Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г",
-      price: "от 600 ₽",
-      btnInfo: "В корзину",
-    },
-  ]);
-  console.log("====================================");
+  
+  const card = useSelector((state) => state.news.product);
   console.log(card);
-  console.log("====================================");
+  const myKorzinka =(item)=>{
+    let  maxsulot = {
+      img: item.img,
+      info: item.info,
+      title:item.title,
+      price: item.Price,
+      Name:item.Name,
+      count:1,
+    }
+    setKorzinka(maxsulot)
+  }
   return (
     <div>
-      <Container>
-        <Typography
-          sx={{
-            fontWeight: "700",
-            fontSize: "32px",
-            color: "#F7D22D",
-            mt: "45px",
-            mb: "20px",
-          }}
-        >
-          Паста
-        </Typography>
+      { <Container>
+        {card.map((item, i) => {
+          return (
+            <>
+              <Typography
+                sx={{
+                  fontWeight: "700",
+                  fontSize: "32px",
+                  color: "#F7D22D",
+                  mt: "45px",
+                  mb: "20px",
+                }}
+              >
+                {item.type}
+              </Typography>
 
-        <div className="flex flex-wrap justify-between">
-          {card.map((item, i) => {
-            return (
-              <Card sx={{ maxWidth: 280, my: "16px" }} key={i}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={item.img}
-                    alt="green iguana"
-                  />
-                  <CardContent>
-                    <Typography
-                      gutterBottom
-                      variant="h5"
-                      component="div"
-                      sx={{
-                        color: "#797979",
-                        fontSize: "24px",
-                      }}
-                    >
-                      {item.info}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {item.title}
-                    </Typography>
-                    <div className="flex justify-between mt-6">
-                      <Typography
-                        sx={{
-                          fontWeight: "bold",
-                          color: "#231F20",
-                          fontSize: "22px",
-                        }}
-                      >
-                        {item.price}
-                      </Typography>
-                      <Button
-                        variant="contained"
-                        sx={{ background: "#F7D22D !important" }}
-                      >
-                        {item.btnInfo}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            );
-          })}
-        </div>
-      </Container>
+                <Grid container spacing={4} sx={{my:1}}>
+                {item.products.map((item1, index) => {
+                  return (
+                    <Grid key={index} item xs={12} sm={6} lg={3}  >
+                    <Box   sx={{ boxShadow:4}} >
+                        <img src={item1.img}  style={{
+                        height: "253px",
+                        objectFit:"cover",
+                        borderRadius:24,
+                        display: "block",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                       }} />
+                        <Typography sx={{fontStyle: "normal",
+                              my:1,fontWeight: 800,
+                              fontSize: "24px",
+                              lineHeight: "28px",
+                              textAlign:"center",
+                              color: "#797979",}}>
+                              {item1.Name}
+                        </Typography>
+                        <Typography sx={{fontStyle: "normal",
+                              my:1,fontWeight: 500,
+                              fontSize: "13px",
+                              lineHeight: "19px",
+                              textAlign:"left",
+                              color: "#686466",}}>
+                              {item1.title}
+                        </Typography>
+                        <Box sx={{display:"flex",justifyContent:{xs:"start",lg:"space-between"},gap:{xs:"16px",lg:0},alignItems:"center"}}>
+                        <Typography sx={{fontStyle: "normal",
+                              my:1,fontWeight: 700,
+                              fontSize: "22px",
+                              lineHeight: "19px",
+                              textAlign:"left",
+                              color: "#231F20",}}>
+                              oт {item1.Price} ₽
+                        </Typography>
+                        <Button variant="contained" color="warning" 
+                        onClick={()=> myKorzinka(item1)}>
+                          korzinka
+                        </Button>
+                        </Box>
+                    </Box>
+                </Grid>
+                  );
+                })
+              }
+              </Grid>
+            </>
+          );
+        })}
+      </Container> }
     </div>
   );
 }
